@@ -1,5 +1,5 @@
-mod p2337;
+mod p1760;
 
 pub fn main() {
-    p2337::run();
+    p1760::run();
 }
