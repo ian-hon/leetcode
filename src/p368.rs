@@ -10,25 +10,32 @@ pub fn run() {
 }
 
 pub fn largest_divisible_subset(mut nums: Vec<i32>) -> Vec<i32> {
-    let mut result = vec![];
+    let mut result = 0;
 
     nums.sort();
-    let mut dp = nums.iter().map(|x| vec![*x]).collect::<Vec<Vec<i32>>>();
+    let mut map = nums.iter().map(|x| vec![*x]).collect::<Vec<Vec<i32>>>();
     
     for (index, n) in nums.iter().enumerate() {
+        let mut highest = (0, 0);
+        let mut flag = false;
         for i in 0..index {
             if (*n % nums[i]) == 0 {
-                if dp[i].len() >= dp[index].len() {
-                    dp[index] = dp[i].clone();
-                    dp[index].push(*n);
+                if map[i].len() >= highest.1 {
+                    flag = true;
+                    highest.0 = i;
+                    highest.1 = map[i].len();
                 } 
             }
         }
-        
-        if result.len() < dp[index].len() {
-            result = dp[index].clone();
+        if flag {
+            map[index] = map[highest.0].clone();
+            map[index].push(*n);
+        }
+
+        if map[result].len() < map[index].len() {
+            result = index;
         }
     }
 
-    result
+    map[result].clone()
 }
