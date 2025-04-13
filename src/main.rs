@@ -1,5 +1,5 @@
-mod p2843;
+mod p1922;
 
 pub fn main() {
-    p2843::run();
+    p1922::run();
 }
